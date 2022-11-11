@@ -24,6 +24,7 @@ public class Actions
     int exit = 0;
     int CheckGo = 0;
     int mistake = 0;
+    int delete_row = 0;
 
     public void introduction() throws SQLException, ClassNotFoundException
     {
@@ -62,26 +63,49 @@ public class Actions
 
     public void correction() throws SQLException, ClassNotFoundException
     {
+            for (int y = 0; y<10; y++)
+            {
+                System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
+                    count_action = sc.nextInt();
 
-        System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
-            count_action = sc.nextInt();
-        for (int i = 0; i < count_action; i++)
-        {
-            System.out.println("--Введите id строки, которую хотите изменить:");
-                NewId = sc.nextInt();
-                    data6.setNewId(NewId);
-                        data6.NewDeleteIn();
-            sc.nextLine();
-            System.out.println("--Введите номер автобуса:");
-                number = sc.nextLine();
-                    data6.setNumber(number);
-            System.out.println("--Введите фамилию и.о. водителя:");
-                name = sc.nextLine();
-                    data6.setName(name);
-                        data6.NewinsertIn();
-        }
-        data6.NewgetBusIn();
-            data6.DeleteRow();
+                if (count_action <= count_bus & count_action > 0)
+                {
+                    for (int i = 0; i < count_action; i++)
+                    {
+                        System.out.println("--Если хотите полностью удалить строчку - нажмите 1");
+                            System.out.println("--Если хотите внести точечные изменения - нажмите 2");
+                                delete_row = sc.nextInt();
+                        if (delete_row == 1)
+                        {
+                            System.out.println("--Введите id строки, которую хотите удалить");
+                                NewId = sc.nextInt();
+                                    data6.setNewId(NewId);
+                                        data6.NewDeleteIn();
+                        }
+                        if (delete_row == 2)
+                        {
+                            System.out.println("--Введите id строки, которую хотите изменить:");
+                                NewId = sc.nextInt();
+                                    data6.setNewId(NewId);
+                                        data6.NewDeleteIn();
+                            sc.nextLine();
+                            System.out.println("--Введите номер автобуса:");
+                                number = sc.nextLine();
+                                    data6.setNumber(number);
+                            System.out.println("--Введите фамилию и.о. водителя:");
+                                name = sc.nextLine();
+                                    data6.setName(name);
+                                        data6.NewinsertIn();
+                        }
+                    }
+                    data6.NewgetBusIn();
+                    break;
+                }
+                else
+                {
+                    System.out.println("--Вы ввели недопустимое число");
+                }
+            }
     }
 
     public void ThatsAll() throws SQLException, ClassNotFoundException
@@ -177,8 +201,7 @@ public class Actions
 
             if (check == 2)
             {
-                work();
-                    ThatsAll();
+                break;
             }
 
             if (exit == 3)
@@ -202,7 +225,7 @@ public class Actions
                             break;
                         }
 
-                            correction();
+                    correction();
                 }
             }
             break;
