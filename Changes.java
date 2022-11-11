@@ -53,12 +53,6 @@ public class Changes
             PreparedStatement prSt = getDbConnection().prepareStatement(sql);
                 prSt.executeUpdate();
     }
-    public void NewDelete() throws SQLException, ClassNotFoundException
-    {
-        String sql = "DELETE FROM `inpark`WHERE id =" + getNewId() + "";
-            PreparedStatement prSt = getDbConnection().prepareStatement(sql);
-                prSt.executeUpdate();
-    }
 
     public void NewinsertIn() throws SQLException, ClassNotFoundException
     {
@@ -81,15 +75,5 @@ public class Changes
                     String Name = res.getString(3);
                         System.out.printf("%d - %s - %s\n", id, Number, Name);
         }
-    }
-    public void DeleteRow() throws SQLException, ClassNotFoundException
-    {
-        System.out.println("Если хотите удалить строку в таблице - нажмите 1");
-            delete_row = sc.nextInt();
-                if (delete_row == 1)
-                {
-                    NewDelete();
-                }
-
     }
 }
