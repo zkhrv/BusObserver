@@ -23,6 +23,7 @@ public class Actions
     int count_correction = 2;
     int delete_row = 0;
     int checkChose = 0;
+    int marker = 0;
 
     public void introduction() throws SQLException, ClassNotFoundException
     {
@@ -127,9 +128,10 @@ public class Actions
         System.out.println("");
             System.out.println("--Для отправки автобуса в рейс введите 1");
                 System.out.println("--Для завершения рабочего дня введите 3");
+
         while (task < 3)
         {
-            task = sc.nextInt();
+                task = sc.nextInt();
 
             if (task == 3 | task > 3) {}
 
@@ -144,10 +146,10 @@ public class Actions
                                         data3.getBusDep();
                                             data3.getBusIn();
                     System.out.println("");
-                    System.out.println("--Для отправки автобуса в рейс введите 1");
-                    System.out.println("--Для въезда автобуса в парк нажмите 2");
-                    System.out.println("--Для завершения рабочего дня введите 3");
-                    break;
+                        System.out.println("--Для отправки автобуса в рейс введите 1");
+                            System.out.println("--Для въезда автобуса в парк нажмите 2");
+                                System.out.println("--Для завершения рабочего дня введите 3");
+                                    break;
 
                 case 2:
                     System.out.println("--Введите id водителя, который завершил рейс:");
@@ -158,10 +160,10 @@ public class Actions
                                         data4.getBusDep();
                                             data4.getBusIn();
                     System.out.println("");
-                    System.out.println("--Для отправки автобуса в рейс введите 1");
-                    System.out.println("--Для въезда автобуса в парк нажмите 2");
-                    System.out.println("--Для завершения рабочего дня введите 3");
-                    break;
+                        System.out.println("--Для отправки автобуса в рейс введите 1");
+                            System.out.println("--Для въезда автобуса в парк нажмите 2");
+                                System.out.println("--Для завершения рабочего дня введите 3");
+                                    break;
                 case 3:
                     System.out.println("--Вы точно хотите завершить рабочий день?");
                         System.out.println("--Если хотите завершить - нажмите 1\n--Если хотите продолжить - нажмите 2");
@@ -179,7 +181,7 @@ public class Actions
                         System.out.println("--Для отправки автобуса в рейс введите 1");
                             System.out.println("--Для въезда автобуса в парк нажмите 2");
                                 System.out.println("--Для завершения рабочего дня введите 3");
-                                    task = sc.nextInt();
+                                    task = 0;
                     }
                     break;
             }
