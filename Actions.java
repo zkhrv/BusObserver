@@ -23,7 +23,6 @@ public class Actions
     int count_correction = 2;
     int delete_row = 0;
     int checkChose = 0;
-    int marker = 0;
 
     public void introduction() throws SQLException, ClassNotFoundException
     {

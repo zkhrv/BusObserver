@@ -3,8 +3,6 @@ import java.util.Scanner;
 
 public class Changes
 {
-    Scanner sc = new Scanner(System.in);
-
     private final String HOST = "localhost";
     private final String PORT = "3306";
     private final String DB_NAME = "Buspark";
@@ -15,7 +13,6 @@ public class Changes
     private String number;
     private String name;
     private int NewId = 0;
-    int delete_row = 0;
 
     public void setNumber (String Number)
     {
