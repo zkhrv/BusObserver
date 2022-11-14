@@ -9,7 +9,6 @@ public class Main
         data1.introduction();
             data1.CorrectionInDB();
                 data1.work();
-                    data1.ThatsAll();
     }
 }
 

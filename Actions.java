@@ -21,10 +21,8 @@ public class Actions
     int CheckExit = 0;
     int check = 0;
     int count_correction = 2;
-    int exit = 0;
-    int CheckGo = 0;
-    int mistake = 0;
     int delete_row = 0;
+    int checkChose = 0;
 
     public void introduction() throws SQLException, ClassNotFoundException
     {
@@ -63,24 +61,34 @@ public class Actions
 
     public void correction() throws SQLException, ClassNotFoundException
     {
-            for (int y = 0; y<10; y++)
+        System.out.println("--//Вам доступно всего 2 попытки редактирования//--");
+            for (int y = 0; y<count_correction; y++)
             {
-                System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
-                    count_action = sc.nextInt();
-
+                    System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
+                        System.out.println("--Если хотите выйти из функции внесения изменений - нажмите 777");
+                            count_action = sc.nextInt();
+                if (count_action == 777)
+                {
+                    break;
+                }
                 if (count_action <= count_bus & count_action > 0)
                 {
                     for (int i = 0; i < count_action; i++)
                     {
                         System.out.println("--Если хотите полностью удалить строчку - нажмите 1");
                             System.out.println("--Если хотите внести точечные изменения - нажмите 2");
-                                delete_row = sc.nextInt();
+                                System.out.println("--Если хотите выйти из функции внесения изменений - нажмите 777");
+                                    delete_row = sc.nextInt();
                         if (delete_row == 1)
                         {
                             System.out.println("--Введите id строки, которую хотите удалить");
                                 NewId = sc.nextInt();
                                     data6.setNewId(NewId);
                                         data6.NewDeleteIn();
+                            if (NewId <=0 & NewId > count_bus)
+                            {
+                                System.out.println("--Вы ввели недопустимое число");
+                            }
                         }
                         if (delete_row == 2)
                         {
@@ -96,37 +104,22 @@ public class Actions
                                 name = sc.nextLine();
                                     data6.setName(name);
                                         data6.NewinsertIn();
+
+                            if (NewId <=0 & NewId > count_bus)
+                            {
+                                System.out.println("--Вы ввели недопустимое число");
+                            }
                         }
+                        if (delete_row == 777)
+                        {break;}
                     }
                     data6.NewgetBusIn();
-                    break;
                 }
                 else
                 {
-                    System.out.println("--Вы ввели недопустимое число");
+                    System.out.println("-!-!-ERROR: вы ввели недопустимое число (Повторите попытку еще раз)\n");
                 }
             }
-    }
-
-    public void ThatsAll() throws SQLException, ClassNotFoundException
-    {
-        System.out.println("--Вы точно хотите завершить рабочий день?");
-            System.out.println("--Если хотите завершить - нажмите 1\n--Если хотите продолжить - нажмите 2");
-                CheckExit = sc.nextInt();
-
-        if (CheckExit == 1)
-        {
-            System.out.println("--Тяжелый выдался день, не так ли? До новых встреч!");
-                data5.DeleteTablesIn();
-                    data5.DeleteTableDep();
-                        System.exit(0);
-        }
-        if (CheckExit == 2)
-        {
-            System.out.println("--Для отправки автобуса в рейс введите 1");
-                System.out.println("--Для въезда автобуса в парк нажмите 2");
-                    System.out.println("--Для завершения рабочего дня введите 3");
-        }
     }
 
     public void work() throws SQLException, ClassNotFoundException
@@ -169,66 +162,62 @@ public class Actions
                     System.out.println("--Для въезда автобуса в парк нажмите 2");
                     System.out.println("--Для завершения рабочего дня введите 3");
                     break;
+                case 3:
+                    System.out.println("--Вы точно хотите завершить рабочий день?");
+                        System.out.println("--Если хотите завершить - нажмите 1\n--Если хотите продолжить - нажмите 2");
+                            CheckExit = sc.nextInt();
+
+                    if (CheckExit == 1)
+                    {
+                        System.out.println("--Тяжелый выдался день, не так ли? До новых встреч!");
+                            data5.DeleteTablesIn();
+                                data5.DeleteTableDep();
+                                    System.exit(0);
+                    }
+                    if (CheckExit == 2)
+                    {
+                        System.out.println("--Для отправки автобуса в рейс введите 1");
+                            System.out.println("--Для въезда автобуса в парк нажмите 2");
+                                System.out.println("--Для завершения рабочего дня введите 3");
+                                    task = sc.nextInt();
+                    }
+                    break;
             }
         }
     }
+
     public void CorrectionInDB() throws SQLException, ClassNotFoundException
     {
-        System.out.println("--Если хотите внести изменения - нажмите 1\n--Если готовы начать работу - нажмите 2");
-            System.out.println("--//Во время работы вы не сможете изменить таблицу//--");
-                check = sc.nextInt();
-
         for (int c = 0; c < count_correction; c++)
         {
+            System.out.println("--Если хотите внести изменения - нажмите 1\n--Если готовы начать работу - нажмите 2");
+                System.out.println("--//Во время работы вы не сможете изменить таблицу//--");
+                    check = sc.nextInt();
             if (check == 1)
             {
-                correction();
-            }
-
-            System.out.println("--Если введенные значения теперь верны - нажмите 3\n--Если хотите еще раз исправить значения - нажмите 4");
-                exit = sc.nextInt();
-
-            if (exit ==4)
-            {
-                System.out.println("--Если ошибочно нажали 4 или не нашли новых ошибок - нажмите 0");
-                    mistake = sc.nextInt();
-                if (mistake == 0)
-                {
-                    break;
-                }
-                continue;
+                System.out.println("--Если случайно нажали 1 - нажмите 2\n--Если хотите приступить к редактированию - нажмите 1");
+                    checkChose = sc.nextInt();
+                        if (checkChose == 1)
+                        {
+                            correction();
+                        }
+                        if (checkChose == 2)
+                        {}
+                        break;
             }
 
             if (check == 2)
             {
-                break;
-            }
-
-            if (exit == 3)
-            {
-                System.out.println("--Вы уверены, что внесли все изменения?\n--Да - нажмите 1\n--Нет - нажмите 2");
-                    CheckGo = sc.nextInt();
-
-                if (CheckGo == 1)
-                {
-                    System.out.println("--Поехали!");
-                        work();
-                            ThatsAll();
-                }
-
-                if (CheckGo == 2)
-                {
-                    System.out.println("--Если ошибочно нажали 2 или не нашли новых ошибок - нажмите 0");
-                        mistake = sc.nextInt();
-                        if (mistake == 0)
+                System.out.println("--Если случайно нажали 2 - нажмите 1\n--Если хотите приступить к работе - нажмите 2");
+                    checkChose = sc.nextInt();
+                        if (checkChose == 1)
                         {
-                            break;
+                            correction();
                         }
-
-                    correction();
-                }
+                        if (checkChose == 2)
+                        {}
+                        break;
             }
-            break;
         }
     }
 }
