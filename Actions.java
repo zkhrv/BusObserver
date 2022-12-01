@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Actions
 {
@@ -33,16 +34,51 @@ public class Actions
 
             if (count_bus >= 1 & count_bus <= 100)
             {
+                System.out.println("--Доступны обычные цифренные обозначения, а также буквенные:\n1.КМ\n2.М\n3.Н\n4.Т\n5.С");
+                System.out.println("--Обратите внимание!!! Буквенные обозначения пишутся заглавными буквами! После букв, цифры пишутся без пробела!!!");
+
                 for (int i = 0; i < count_bus; i++)
                 {
                     sc.nextLine();
-                    System.out.println("--Введите номер автобуса:");
-                        number = sc.nextLine();
-                            data2.setNumber(number);
-                    System.out.println("--Введите фамилию и.о. водителя:");
+                        System.out.println("--Введите номер автобуса:");
+                            number = sc.nextLine();
+                                Pattern patternNumber = Pattern.compile("\\D[КМ]\\d{0,}||[Н]\\d{1,}||[Т]\\d{1,}||[М]\\d{1,}||[С]\\d{1,}||\\d{1,}");
+                                    Matcher matcherNumber = patternNumber.matcher(number);
+
+                    if (matcherNumber.matches() == true)
+                    {
+                        data2.setNumber(number);
+                    }
+
+                    System.out.println("--Введите Фамилию И. О. водителя:");
                         name = sc.nextLine();
-                            data2.setName(name);
-                                data2.insertIn();
+                            Pattern patternName = Pattern.compile("([А-Я]{1}[а-я]{1,45})\\s([A-Я]{1}\\W\\s[A-Я]{1}\\W)");
+                                Matcher matcherName = patternName.matcher(name);
+
+                    if (matcherName.matches() == true)
+                    {
+                        data2.setName(name);
+                    }
+
+                    if (matcherName.matches() == true & matcherNumber.matches() == true)
+                    {
+                        data2.insertIn();
+                    }
+                    if (matcherName.matches() == false || matcherNumber.matches() == false)
+                    {
+                        if (matcherNumber.matches() == false)
+                        {
+                            System.out.println("--Вы некорректно ввели номер автобуса. Повторите попытку ввода");
+                                System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
+                        }
+                        if (matcherName.matches() == false)
+                        {
+                            System.out.println("--Вы неккоректно ввели ФИО. Повторите попытку ввода");
+                                System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
+                        }
+                        System.out.println("--Нажмите ENTER для продолжения");
+                        count_bus++;
+                    }
                 }
                 break;
             }
