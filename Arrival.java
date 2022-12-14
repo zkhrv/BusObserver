@@ -41,7 +41,7 @@ public class Arrival
 
     public void getBusDep() throws SQLException, ClassNotFoundException
     {
-        String sql = "SELECT `id`, `Number`, `Name` FROM `departure`";
+        String sql = "SELECT * FROM `departure` ORDER BY `id` ASC";
             Statement statement = getDbConnection().createStatement();
                 ResultSet res = statement.executeQuery(sql);
                     System.out.println("");
@@ -58,7 +58,7 @@ public class Arrival
 
     public void getBusIn() throws SQLException, ClassNotFoundException
     {
-        String sql = "SELECT `id`, `Number`, `Name` FROM `inpark`";
+        String sql = "SELECT * FROM `inpark` ORDER BY `id` ASC";
             Statement statement = getDbConnection().createStatement();
                 ResultSet res = statement.executeQuery(sql);
                     System.out.println("");

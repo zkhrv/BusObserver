@@ -6,9 +6,9 @@ public class Main
     {
         Actions data1 = new Actions();
 
-        data1.introduction();
-            data1.CorrectionInDB();
-                data1.work();
+            data1.introduction();
+                data1.CorrectionInDB();
+                    data1.work();
     }
 }
 

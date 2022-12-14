@@ -59,7 +59,7 @@ public class Changes
 
     public void NewgetBusIn() throws SQLException, ClassNotFoundException
     {
-        String sql = "SELECT `id`, `Number`, `Name` FROM `inpark`";
+        String sql = "SELECT * FROM `inpark`";
             Statement statement = getDbConnection().createStatement();
                 ResultSet res = statement.executeQuery(sql);
                     System.out.println("id  -  Number  -  Name     (In Park)");
@@ -72,4 +72,5 @@ public class Changes
                         System.out.printf("%d - %s - %s\n", id, Number, Name);
         }
     }
+
 }
