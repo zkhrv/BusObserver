@@ -30,7 +30,7 @@ public class Actions
     {
         for (int a = 0; a < count_attempt; a++)
         {
-            System.out.println("--Выберите количество автобусов в парке на сегодняшний день:");
+            System.out.println("--Введите количество автобусов в парке на сегодняшний день:");
                 count_bus = sc.nextInt();
 
             if (count_bus >= 1 & count_bus <= 100)
