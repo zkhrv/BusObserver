@@ -98,94 +98,96 @@ public class Actions
 
     public void correction() throws SQLException, ClassNotFoundException
     {
-        System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
-            System.out.println("--Если хотите выйти из функции внесения изменений - нажмите 777");
-                count_action = sc.nextInt();
+        System.out.println("--//Вам доступно всего 2 попытки редактирования//--");
 
-                if (count_action == 777)
-                {
-                    work();
-                }
-                if (count_action <= count_bus & count_action > 0)
+        for (int y = 0; y<count_correction; y++)
+        {
+            System.out.println("--Посчитайте количество строк, которые хотите изменить, а затем введите их количество");
+                System.out.println("--Если хотите выйти из функции внесения изменений - нажмите 777");
+                    count_action = sc.nextInt();
+
+            if (count_action == 777)
+            {
+                break;
+            }
+            if (count_action <= count_bus & count_action > 0)
+            {
+                for (int i = 0; i < count_action; i++)
                 {
                     System.out.println("--Если хотите полностью удалить строчку - нажмите 1");
                         System.out.println("--Если хотите внести точечные изменения - нажмите 2");
                             System.out.println("--Если хотите выйти из функции внесения изменений - нажмите 777");
                                 delete_row = sc.nextInt();
-
-                    for (int i = 0; i < count_action; i++)
+                    if (delete_row == 1)
                     {
-                            switch (delete_row)
+                        System.out.println("--Введите id строки, которую хотите удалить");
+                            NewId = sc.nextInt();
+                                data6.setNewId(NewId);
+                                    data6.NewDeleteIn();
+                        if (NewId <=0 & NewId > count_bus)
+                        {
+                            System.out.println("--Вы ввели недопустимое число");
+                        }
+                    }
+                    if (delete_row == 2)
+                    {
+                        System.out.println("--Введите id строки, которую хотите изменить:");
+                        NewId = sc.nextInt();
+                            data6.setNewId(NewId);
+                                data6.NewDeleteIn();
+                            for (int o=0; o<count_correction_regex; o++)
                             {
-                                case 1:
-                                    System.out.println("--Введите id строки, которую хотите удалить");
-                                        NewId = sc.nextInt();
-                                            data6.setNewId(NewId);
-                                                data6.NewDeleteIn();
-                                    System.out.println("--ДАННЫЕ УДАЛЕНЫ");
-                                    data6.NewgetBusIn();
-                                    break;
+                                sc.nextLine();
+                                System.out.println("--Введите номер автобуса:");
+                                number = sc.nextLine();
+                                Pattern patternNumber = Pattern.compile("\\D[КМ]\\d{0,}||[Н]\\d{1,}||[Т]\\d{1,}||[М]\\d{1,}||[С]\\d{1,}||\\d{1,}");
+                                Matcher matcherNumber = patternNumber.matcher(number);
 
-                                case 2:
-                                    System.out.println("--Введите id строки, которую хотите изменить:");
-                                        NewId = sc.nextInt();
-                                            data6.setNewId(NewId);
-                                                data6.NewDeleteIn();
-                                    for (int o=0; i<count_correction_regex; o++)
+                                if (matcherNumber.matches() == true)
+                                {
+                                    data6.setNumber(number);
+                                }
+                                System.out.println("--Введите фамилию и.о. водителя:");
+                                name = sc.nextLine();
+                                Pattern patternName = Pattern.compile("([А-Я]{1}[а-я]{1,45})\\s([A-Я]{1}\\W\\s[A-Я]{1}\\W)");
+                                Matcher matcherName = patternName.matcher(name);
+
+                                if (matcherName.matches() == true)
+                                {
+                                    data6.setName(name);
+                                }
+                                if (matcherName.matches() == true & matcherNumber.matches() == true)
+                                {
+                                    data6.NewinsertIn();
+                                    break;
+                                }
+                                if (matcherName.matches() == false || matcherNumber.matches() == false)
+                                {
+                                    if (matcherNumber.matches() == false)
                                     {
-                                        sc.nextLine();
-                                        System.out.println("--Введите номер автобуса:");
-                                        number = sc.nextLine();
-                                        Pattern patternNumber = Pattern.compile("\\D[КМ]\\d{0,}||[Н]\\d{1,}||[Т]\\d{1,}||[М]\\d{1,}||[С]\\d{1,}||\\d{1,}");
-                                        Matcher matcherNumber = patternNumber.matcher(number);
-
-                                        if (matcherNumber.matches() == true)
-                                        {
-                                            data6.setNumber(number);
-                                        }
-                                        System.out.println("--Введите фамилию и.о. водителя:");
-                                        name = sc.nextLine();
-                                        Pattern patternName = Pattern.compile("([А-Я]{1}[а-я]{1,45})\\s([A-Я]{1}\\W\\s[A-Я]{1}\\W)");
-                                        Matcher matcherName = patternName.matcher(name);
-
-                                        if (matcherName.matches() == true)
-                                        {
-                                            data6.setName(name);
-                                        }
-                                        if (matcherName.matches() == true & matcherNumber.matches() == true)
-                                        {
-                                            data6.NewinsertIn();
-                                            break;
-                                        }
-                                        if (matcherName.matches() == false || matcherNumber.matches() == false)
-                                        {
-                                            if (matcherNumber.matches() == false)
-                                            {
-                                                System.out.println("--Вы некорректно ввели номер автобуса. Повторите попытку ввода");
-                                                System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
-                                            }
-                                            if (matcherName.matches() == false)
-                                            {
-                                                System.out.println("--Вы неккоректно ввели ФИО. Повторите попытку ввода");
-                                                System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
-                                            }
-                                            System.out.println("--Нажмите ENTER для продолжения");
-                                            count_correction_regex++;
-                                        }
+                                        System.out.println("--Вы некорректно ввели номер автобуса. Повторите попытку ввода");
+                                        System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
                                     }
-                                    data6.NewgetBusIn();
-                                    break;
-                                case 777:
-                                    work();
-                                    break;
+                                    if (matcherName.matches() == false)
+                                    {
+                                        System.out.println("--Вы неккоректно ввели ФИО. Повторите попытку ввода");
+                                        System.out.println("--Ошибка возникла при вводе последних данных. Вам необходимо провести процедура ввода последней строки заново");
+                                    }
+                                    System.out.println("--Нажмите ENTER для продолжения");
+                                    count_correction_regex++;
+                                }
                             }
                     }
+                    if (delete_row == 777)
+                    {break;}
                 }
-                else
-                {
-                    System.out.println("-!-!-ERROR: вы ввели недопустимое число (Повторите попытку еще раз)\n");
-                    count_correction++;
-                }
+                data6.NewgetBusIn();
+            }
+            else
+            {
+                System.out.println("-!-!-ERROR: вы ввели недопустимое число (Повторите попытку еще раз)\n");
+            }
+        }
     }
 
     public void work() throws SQLException, ClassNotFoundException
